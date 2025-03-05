@@ -53,9 +53,18 @@ func convertRequest(model string, input *ai.GenerateRequest) (goopenai.ChatCompl
 		slices.Contains(modelsSupportingResponseFormats, model) {
 		switch input.Output.Format {
 		case ai.OutputFormatJSON:
-			chatCompletionRequest.ResponseFormat = goopenai.F[goopenai.ChatCompletionNewParamsResponseFormatUnion](goopenai.ChatCompletionNewParamsResponseFormat{
-				Type: goopenai.F(goopenai.ChatCompletionNewParamsResponseFormatTypeJSONObject),
-			})
+			var responseFormat goopenai.ChatCompletionNewParamsResponseFormat
+			if input.Output.Schema == nil {
+				responseFormat = goopenai.ChatCompletionNewParamsResponseFormat{
+					Type: goopenai.F(goopenai.ChatCompletionNewParamsResponseFormatTypeJSONObject),
+				}
+			} else {
+				responseFormat = goopenai.ChatCompletionNewParamsResponseFormat{
+					Type:       goopenai.F(goopenai.ChatCompletionNewParamsResponseFormatTypeJSONSchema),
+					JSONSchema: goopenai.F[any](input.Output.Schema),
+				}
+			}
+			chatCompletionRequest.ResponseFormat = goopenai.F[goopenai.ChatCompletionNewParamsResponseFormatUnion](responseFormat)
 		case ai.OutputFormatText:
 			chatCompletionRequest.ResponseFormat = goopenai.F[goopenai.ChatCompletionNewParamsResponseFormatUnion](goopenai.ChatCompletionNewParamsResponseFormat{
 				Type: goopenai.F(goopenai.ChatCompletionNewParamsResponseFormatTypeText),

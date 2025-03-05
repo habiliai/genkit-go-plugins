@@ -3,8 +3,8 @@ module github.com/yukinagae/genkit-go-plugins
 go 1.23.0
 
 require (
-	github.com/firebase/genkit/go v0.1.1
-	github.com/openai/openai-go v0.1.0-alpha.13
+	github.com/firebase/genkit/go v0.2.1
+	github.com/openai/openai-go v0.1.0-alpha.61
 )
 
 require (
