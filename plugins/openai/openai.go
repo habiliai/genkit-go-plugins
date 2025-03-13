@@ -26,6 +26,8 @@ var state struct {
 
 var (
 	knownCaps = map[string]ai.ModelCapabilities{
+		goopenai.ChatModelO3Mini:      BasicText,
+		goopenai.ChatModelO1:          BasicText,
 		goopenai.ChatModelGPT4o:       Multimodal,
 		goopenai.ChatModelGPT4oMini:   Multimodal,
 		goopenai.ChatModelGPT4Turbo:   Multimodal,
@@ -34,6 +36,8 @@ var (
 	}
 
 	modelsSupportingResponseFormats = []string{
+		goopenai.ChatModelO3Mini,
+		goopenai.ChatModelO1,
 		goopenai.ChatModelGPT4o,
 		goopenai.ChatModelGPT4oMini,
 		goopenai.ChatModelGPT4Turbo,
