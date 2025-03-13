@@ -41,9 +41,9 @@ var (
 	}
 
 	knownEmbedders = []string{
-		string(goopenai.EmbeddingNewParamsModelTextEmbedding3Small),
-		string(goopenai.EmbeddingNewParamsModelTextEmbedding3Large),
-		string(goopenai.EmbeddingNewParamsModelTextEmbeddingAda002),
+		goopenai.EmbeddingModelTextEmbedding3Small,
+		goopenai.EmbeddingModelTextEmbedding3Large,
+		goopenai.EmbeddingModelTextEmbeddingAda002,
 	}
 )
 
@@ -161,11 +161,9 @@ func defineEmbedder(name string) ai.Embedder {
 			}
 		}
 
-		model := goopenai.EmbeddingNewParamsModel(name)
-
 		params := goopenai.EmbeddingNewParams{
 			Input:          goopenai.F[goopenai.EmbeddingNewParamsInputUnion](data),
-			Model:          goopenai.F(model),
+			Model:          goopenai.F(name),
 			EncodingFormat: goopenai.F(goopenai.EmbeddingNewParamsEncodingFormatFloat),
 		}
 
