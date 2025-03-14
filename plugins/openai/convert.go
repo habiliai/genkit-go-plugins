@@ -47,6 +47,11 @@ func convertRequest(model string, input *ai.GenerateRequest) (goopenai.ChatCompl
 			chatCompletionRequest.TopP = goopenai.F(c.TopP)
 		}
 	}
+	if c, ok := input.Config.(*GenerationReasoningConfig); ok && c != nil {
+		if c.ReasoningEffort != "" {
+			chatCompletionRequest.ReasoningEffort = goopenai.F(goopenai.ChatCompletionReasoningEffort(c.ReasoningEffort))
+		}
+	}
 
 	if input.Output != nil &&
 		input.Output.Format != "" &&

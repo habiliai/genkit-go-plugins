@@ -26,6 +26,8 @@ var state struct {
 
 var (
 	knownCaps = map[string]ai.ModelCapabilities{
+		goopenai.ChatModelO3Mini:      BasicText,
+		goopenai.ChatModelO1:          BasicText,
 		goopenai.ChatModelGPT4o:       Multimodal,
 		goopenai.ChatModelGPT4oMini:   Multimodal,
 		goopenai.ChatModelGPT4Turbo:   Multimodal,
@@ -34,6 +36,8 @@ var (
 	}
 
 	modelsSupportingResponseFormats = []string{
+		goopenai.ChatModelO3Mini,
+		goopenai.ChatModelO1,
 		goopenai.ChatModelGPT4o,
 		goopenai.ChatModelGPT4oMini,
 		goopenai.ChatModelGPT4Turbo,
@@ -41,9 +45,9 @@ var (
 	}
 
 	knownEmbedders = []string{
-		string(goopenai.EmbeddingNewParamsModelTextEmbedding3Small),
-		string(goopenai.EmbeddingNewParamsModelTextEmbedding3Large),
-		string(goopenai.EmbeddingNewParamsModelTextEmbeddingAda002),
+		goopenai.EmbeddingModelTextEmbedding3Small,
+		goopenai.EmbeddingModelTextEmbedding3Large,
+		goopenai.EmbeddingModelTextEmbeddingAda002,
 	}
 )
 
@@ -161,11 +165,9 @@ func defineEmbedder(name string) ai.Embedder {
 			}
 		}
 
-		model := goopenai.EmbeddingNewParamsModel(name)
-
 		params := goopenai.EmbeddingNewParams{
 			Input:          goopenai.F[goopenai.EmbeddingNewParamsInputUnion](data),
-			Model:          goopenai.F(model),
+			Model:          goopenai.F(name),
 			EncodingFormat: goopenai.F(goopenai.EmbeddingNewParamsEncodingFormatFloat),
 		}
 
