@@ -304,7 +304,8 @@ func TestConvertToolCall(t *testing.T) {
 				ID:   goopenai.F("tellAFunnyJoke"),
 				Type: goopenai.F(goopenai.ChatCompletionMessageToolCallTypeFunction),
 				Function: goopenai.F(goopenai.ChatCompletionMessageToolCallFunctionParam{
-					Name: goopenai.F("tellAFunnyJoke"),
+					Name:      goopenai.F("tellAFunnyJoke"),
+					Arguments: goopenai.F("{}"),
 				}),
 			},
 		},
@@ -320,7 +321,8 @@ func TestConvertToolCall(t *testing.T) {
 				ID:   goopenai.F("tellAFunnyJoke"),
 				Type: goopenai.F(goopenai.ChatCompletionMessageToolCallTypeFunction),
 				Function: goopenai.F(goopenai.ChatCompletionMessageToolCallFunctionParam{
-					Name: goopenai.F("tellAFunnyJoke"),
+					Name:      goopenai.F("tellAFunnyJoke"),
+					Arguments: goopenai.F("{}"),
 				}),
 			},
 		},
