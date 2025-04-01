@@ -167,6 +167,9 @@ func convertToolCall(part *ai.Part) goopenai.ChatCompletionMessageToolCallParam 
 
 	if len(part.ToolRequest.Input) > 0 {
 		param.Function.Value.Arguments = goopenai.F(mapToJSONString(part.ToolRequest.Input))
+	} else {
+		// NOTE: OpenAI API requires the Arguments field to be set even if it's empty.
+		param.Function.Value.Arguments = goopenai.F("{}")
 	}
 
 	return param
